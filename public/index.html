@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎙️ Grok Real Voice Agent</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-width: 600px;
+      width: 100%;
+    }
+    h1 {
+      color: #667eea;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 2em;
+    }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 0.9em;
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
+    }
+    #startBtn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    #startBtn:hover { transform: scale(1.05); }
+    #startBtn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: scale(1);
+    }
+    .model-btn {
+      background: #f0f0f0;
+      color: #333;
+    }
+    .model-btn.active {
+      background: #4CAF50;
+      color: white;
+    }
+    #status {
+      text-align: center;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      color: #333;
+      font-weight: 500;
+    }
+    #response {
+      background: #f9f9f9;
+      border-radius: 10px;
+      padding: 20px;
+      min-height: 150px;
+      max-height: 300px;
+      overflow-y: auto;
+      line-height: 1.6;
+      color: #333;
+    }
+    .listening {
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .error { color: #f44336; }
+    .success { color: #4CAF50; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎙️ GROK REAL VOICE AGENT</h1>
+    <p class="subtitle">Mic se bol – Agent sune – Jawab de!</p>
+
+    <div class="controls">
+      <button id="startBtn">🎤 Start Mic</button>
+      <button class="model-btn active" data-model="grok">Grok Mode</button>
+      <button class="model-btn" data-model="gemini">Gemini Mode</button>
+    </div>
+
+    <div id="status">Ready...</div>
+    <div id="response"></div>
+  </div>
+
+  <script>
+    const startBtn = document.getElementById('startBtn');
+    const status = document.getElementById('status');
+    const response = document.getElementById('response');
+    const modelBtns = document.querySelectorAll('.model-btn');
+
+    let recognition;
+    let currentModel = 'grok';
+    let isListening = false;
+
+    // Model selection
+    modelBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (isListening) return;
+        modelBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentModel = btn.dataset.model;
+        status.textContent = `${currentModel.toUpperCase()} mode selected`;
+      });
+    });
+
+    // Speech recognition setup
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        isListening = true;
+        status.textContent = '🎤 Listening...';
+        status.classList.add('listening');
+        startBtn.disabled = true;
+      };
+
+      recognition.onresult = async (event) => {
+        const transcript = event.results[0][0].transcript;
+        status.textContent = `You said: "${transcript}"`;
+        status.classList.remove('listening');
+
+        response.innerHTML = '<em>Thinking...</em>';
+
+        try {
+          const res = await fetch('/speak', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: transcript, model: currentModel })
+          });
+
+          const data = await res.json();
+
+          if (data.error) {
+            response.innerHTML = `<span class="error">Error: ${data.error}</span>`;
+          } else {
+            response.innerHTML = `<strong>${currentModel.toUpperCase()} says:</strong><br>${data.reply}`;
+            // Speak the response
+            const utterance = new SpeechSynthesisUtterance(data.reply);
+            speechSynthesis.speak(utterance);
+          }
+        } catch (err) {
+          response.innerHTML = `<span class="error">Network error: ${err.message}</span>`;
+        }
+
+        startBtn.disabled = false;
+        isListening = false;
+      };
+
+      recognition.onerror = (event) => {
+        status.textContent = `Error: ${event.error}`;
+        status.classList.remove('listening');
+        startBtn.disabled = false;
+        isListening = false;
+      };
+
+      recognition.onend = () => {
+        status.classList.remove('listening');
+        if (isListening) {
+          status.textContent = 'Processing...';
+        }
+      };
+
+      startBtn.addEventListener('click', () => {
+        recognition.start();
+      });
+    } else {
+      status.innerHTML = '<span class="error">Speech recognition not supported in this browser</span>';
+      startBtn.disabled = true;
+    }
+  </script>
+</body>
+</html>
