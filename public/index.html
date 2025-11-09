@@ -119,7 +119,6 @@
     let selectedModel = 'perplexity';
     let recognition = null;
 
-    // Check browser support
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       recognition = new SpeechRecognition();
