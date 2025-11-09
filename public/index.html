@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grok Real Voice Agent</title>
+  <title>Perplexity Real Voice Agent</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -89,28 +89,35 @@
       color: #333;
       min-height: 50px;
     }
+    .powered {
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: #999;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🎤 GROK REAL VOICE AGENT</h1>
+    <h1>🎤 PERPLEXITY VOICE AGENT</h1>
     <p class="subtitle">Mic se bol – Agent sune – Jawab de!</p>
 
     <button id="micBtn" class="mic-button">🎤 Start Mic</button>
 
     <div class="model-switch">
-      <button class="model-btn active" data-model="grok">Grok Mode</button>
-      <button class="model-btn" data-model="gemini">Gemini Mode</button>
+      <button class="model-btn active" data-model="perplexity">Perplexity</button>
+      <button class="model-btn" data-model="gemini">Gemini</button>
     </div>
 
     <div id="status">Ready...</div>
+
+    <div class="powered">Powered by Perplexity AI 🚀</div>
   </div>
 
   <script>
     const micBtn = document.getElementById('micBtn');
     const status = document.getElementById('status');
     const modelBtns = document.querySelectorAll('.model-btn');
-    let selectedModel = 'grok';
+    let selectedModel = 'perplexity';
     let recognition = null;
 
     // Check browser support
