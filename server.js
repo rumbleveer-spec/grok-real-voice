@@ -49,5 +49,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("REAL VOICE AGENT LIVE: http://localhost:3000");
+  console.log("PERPLEXITY VOICE AGENT LIVE: http://localhost:3000");
 });
