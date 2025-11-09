@@ -11,7 +11,7 @@ Built on iPad by **Ankit Rajput** 💪
 - 🤖 **Dual Models**: Perplexity + Gemini support
 - 🌐 **Web Interface**: Beautiful UI
 - 💾 **Memory**: Keeps conversation context
-- 🌍 **Real-time Info**: Perplexity gets latest data
+- ⚡ **Real-time Search**: Perplexity's web search capabilities
 
 ## 📦 Installation
 
@@ -26,6 +26,8 @@ npm install express openai @google/generative-ai dotenv
 PERPLEXITY_API_KEY=pplx-your-key-here
 GEMINI_API_KEY=your-gemini-key
 ```
+
+2. Get Perplexity key: [perplexity.ai/settings/api](https://www.perplexity.ai/settings/api)
 
 ## 🚀 Run
 
@@ -49,15 +51,8 @@ Open browser: `http://localhost:3000`
 ✅ Model switching  
 ✅ Memory retention  
 ✅ Beautiful UI  
-✅ Perplexity real-time search  
+✅ **Perplexity AI with web search**  
 ✅ Built on iPad!  
-
-## 🤖 Why Perplexity?
-
-- **Latest Information**: Gets real-time data from internet
-- **Accurate Answers**: More reliable and up-to-date
-- **Voice Perfect**: Great for conversational AI
-- **Free to Use**: No payment needed for testing
 
 ## 👨‍💻 Author
 
@@ -66,5 +61,6 @@ iPad Developer | AI Enthusiast
 
 ---
 
-**Status**: Working with Perplexity AI  
+**Status**: Working Locally  
+**Tech**: Perplexity AI (FREE!)  
 **Effort**: 3+ days, 100+ errors, NEVER GAVE UP! 🔥
