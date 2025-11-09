@@ -1,155 +1,70 @@
-# 🎙️ GROK REAL VOICE AGENT
+# 🎤 PERPLEXITY REAL VOICE
 
-**Voice-to-AI Conversations in Real-time**
+**Real-time Voice AI Agent with Perplexity & Gemini**
 
-Speak through your microphone, AI listens, understands, and responds back with voice. Built with Web Speech API, Grok, and Gemini.
+Built on iPad by **Ankit Rajput** 💪
 
-## ✨ Features
+## 🎯 Features
 
-- **🎤 Voice Input**: Real-time speech recognition
-- **🔊 Voice Output**: Text-to-speech responses
-- **🤖 Dual AI**: Switch between Grok & Gemini
-- **💬 Natural Conversations**: Context-aware dialogue
-- **🎨 Modern UI**: Beautiful gradient interface
-- **📱 Responsive**: Works on desktop & mobile
+- 🎤 **Voice Input**: Speak directly to the AI
+- 🔊 **Voice Output**: AI responds in voice
+- 🤖 **Dual Models**: Perplexity + Gemini support
+- 🌐 **Web Interface**: Beautiful UI
+- 💾 **Memory**: Keeps conversation context
+- 🌍 **Real-time Info**: Perplexity gets latest data
 
-## 🚀 Quick Start
-
-### Installation
+## 📦 Installation
 
 ```bash
-npm install
+npm install express openai @google/generative-ai dotenv
 ```
 
-### Setup
+## 🔐 Setup
 
-1. Copy `.env.example` to `.env`
-2. Add your API keys:
+1. Create `.env` file:
 ```
-GROK_API_KEY=xai-your-key-here
-GEMINI_API_KEY=AIzaSy...
+PERPLEXITY_API_KEY=pplx-your-key-here
+GEMINI_API_KEY=your-gemini-key
 ```
 
-### Run
+## 🚀 Run
 
 ```bash
-npm start
+node server.js
 ```
 
-Visit: `http://localhost:3000`
+Open browser: `http://localhost:3000`
 
-## 🎯 How to Use
+## 🎨 How to Use
 
-1. **Click "Start Mic"** button
-2. **Allow microphone** access when prompted
-3. **Speak your question** clearly
-4. **AI listens & responds** with voice
-5. **Switch models** anytime (Grok ↔ Gemini)
+1. Click "Start Mic" button
+2. Speak your question
+3. AI listens and responds
+4. Switch between Perplexity/Gemini modes
 
-## 🔧 Browser Requirements
+## 🌟 Features
 
-- **Chrome/Edge**: ✅ Full support
-- **Firefox**: ⚠️ Limited (may need flags)
-- **Safari**: ⚠️ Partial support
-- **Mobile**: ✅ Most modern browsers
+✅ Real-time voice recognition  
+✅ AI voice responses  
+✅ Model switching  
+✅ Memory retention  
+✅ Beautiful UI  
+✅ Perplexity real-time search  
+✅ Built on iPad!  
 
-## 🎨 UI Preview
+## 🤖 Why Perplexity?
 
-```
-┌─────────────────────────────────┐
-│   🎙️ GROK REAL VOICE AGENT     │
-│  Mic se bol – Agent sune –      │
-│       Jawab de!                  │
-├─────────────────────────────────┤
-│  [🎤 Start Mic] [Grok] [Gemini] │
-├─────────────────────────────────┤
-│  Status: Ready...                │
-├─────────────────────────────────┤
-│  Response appears here...        │
-└─────────────────────────────────┘
-```
-
-## 📋 API Endpoints
-
-### POST `/speak`
-Send voice transcription to AI
-
-**Request:**
-```json
-{
-  "text": "What is AI?",
-  "model": "grok"
-}
-```
-
-**Response:**
-```json
-{
-  "reply": "AI stands for Artificial Intelligence..."
-}
-```
-
-## 🏗️ Architecture
-
-```
-Voice Agent
-├── Frontend
-│   ├── Web Speech API (STT)
-│   ├── Speech Synthesis (TTS)
-│   └── Modern UI
-└── Backend
-    ├── Express Server
-    ├── Grok API Integration
-    └── Gemini API Integration
-```
-
-## 🛠️ Tech Stack
-
-- **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
-- **Backend**: Node.js, Express
-- **AI APIs**: Grok Beta, Gemini 1.5 Pro
-- **Voice**: Web Speech API, Speech Synthesis
-
-## 🔐 Privacy
-
-- Voice data processed in browser
-- Only text sent to AI APIs
-- No recordings stored
-- Real-time processing only
-
-## 📊 Project Status
-
-- ✅ Voice recognition working
-- ✅ AI integration complete
-- ✅ Text-to-speech functional
-- ⏳ Awaiting $5 Grok credits
-
-## 🎓 Learning Journey
-
-Built after overcoming:
-- 100+ errors debugged
-- Speech API quirks solved
-- Dual AI integration mastered
-- iPad development challenges
+- **Latest Information**: Gets real-time data from internet
+- **Accurate Answers**: More reliable and up-to-date
+- **Voice Perfect**: Great for conversational AI
+- **Free to Use**: No payment needed for testing
 
 ## 👨‍💻 Author
 
-**Ankit Rajput**
-
-*"Mic se bol, Agent sune, Khushi mile!"*
-
----
-
-## 🚧 Future Enhancements
-
-- [ ] Multiple language support
-- [ ] Voice selection options
-- [ ] Conversation history
-- [ ] Export chat logs
-- [ ] Dark mode theme
+**Ankit Rajput**  
+iPad Developer | AI Enthusiast
 
 ---
 
-**Status**: Locally working 🟢  
-**Effort**: 3+ din, iPad pe 💪  
-**Result**: WORKING! 🎉
+**Status**: Working with Perplexity AI  
+**Effort**: 3+ days, 100+ errors, NEVER GAVE UP! 🔥
