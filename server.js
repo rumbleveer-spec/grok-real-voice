@@ -11,22 +11,22 @@ app.use(express.static('public'));
 const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const geminiModel = gemini.getGenerativeModel({ model: "gemini-1.5-pro" });
 
-const grok = new OpenAI({
-  apiKey: process.env.GROK_API_KEY,
-  baseURL: "https://api.x.ai/v1"
+const perplexity = new OpenAI({
+  apiKey: process.env.PERPLEXITY_API_KEY,
+  baseURL: "https://api.perplexity.ai"
 });
 
 let memory = [];
 
 app.post('/speak', async (req, res) => {
-  const { text, model = "grok" } = req.body;
+  const { text, model = "perplexity" } = req.body;
   memory.push({ role: "user", content: `[MIC] ${text}` });
 
   try {
     let reply;
-    if (model === "grok") {
-      const response = await grok.chat.completions.create({
-        model: "grok-beta",
+    if (model === "perplexity") {
+      const response = await perplexity.chat.completions.create({
+        model: "llama-3.1-sonar-small-128k-online",
         messages: memory.slice(-10)
       });
       reply = response.choices[0].message.content;
